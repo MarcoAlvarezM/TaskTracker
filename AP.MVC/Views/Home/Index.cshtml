@@ -1,0 +1,409 @@
+﻿@model IEnumerable<TaskTracker.Data.Project>
+
+
+@{
+    ViewBag.Title = "Task Tracker";
+}
+
+
+<div class="container-fluid">
+
+
+    <div class="row">
+
+
+        <!-- CONTENIDO PRINCIPAL -->
+
+        <div class="col-md-9">
+
+
+            <h2>
+                Task Tracker
+            </h2>
+
+
+            <hr />
+
+
+
+            @foreach (var project in Model)
+            {
+
+
+                <div class="card mb-4">
+
+
+                    <div class="card-header bg-primary text-white">
+
+
+                        <h4>
+                            @project.Name
+                        </h4>
+
+
+                    </div>
+
+
+
+                    <div class="card-body">
+
+
+                        <p>
+
+                            <strong>Description:</strong>
+
+                            @project.Description
+
+                        </p>
+
+
+                        <p>
+
+                            <strong>Team:</strong>
+
+                            @project.Team
+
+                        </p>
+
+
+
+                        <h5>
+                            Milestones
+                        </h5>
+
+
+                        @foreach (var milestone in project.Milestones)
+                        {
+
+
+                            <div class="card mb-3">
+
+
+                                <div class="card-header bg-secondary text-white">
+
+
+                                    <strong>
+                                        @milestone.Name
+                                    </strong>
+
+
+                                    <br />
+
+                                    Status:
+                                    @milestone.Status
+
+
+                                </div>
+
+
+
+                                <div class="card-body">
+
+
+                                    <h6>
+                                        Tasks
+                                    </h6>
+
+
+
+                                    <table class="table table-sm">
+
+
+                                        <tr>
+
+                                            <th>Name</th>
+                                            <th>Status</th>
+                                            <th>Responsible</th>
+                                            <th>Priority</th>
+
+                                        </tr>
+
+
+
+                                        @foreach (var task in milestone.Tasks)
+                                        {
+
+
+                                            <tr>
+
+
+                                                <td>
+
+                                                    @task.Name
+
+                                                </td>
+
+
+                                                <td>
+
+                                                    @task.Status
+
+                                                </td>
+
+
+                                                <td>
+
+                                                    @task.Responsible
+
+                                                </td>
+
+
+                                                <td>
+
+                                                    @task.Priority
+
+                                                </td>
+
+
+                                            </tr>
+
+
+                                        }
+
+
+
+                                    </table>
+
+
+                                </div>
+
+
+                            </div>
+
+
+                        }
+
+
+                    </div>
+
+
+                </div>
+
+
+
+            }
+
+
+
+        </div>
+
+
+
+
+
+        <!-- DRAWER DERECHO -->
+
+
+        <div class="col-md-3">
+
+
+            <div class="card">
+
+
+                <div class="card-header bg-success text-white">
+
+
+                    <h4>
+                        Create Task
+                    </h4>
+
+
+                </div>
+
+
+
+                <div class="card-body">
+
+
+
+                    @using (Html.BeginForm(
+                    "CreateTask",
+                    "Home",
+                    FormMethod.Post))
+                    {
+
+
+                        <div class="form-group">
+
+
+                            <label>
+                                Name
+                            </label>
+
+
+                            <input type="text"
+                                   name="Name"
+                                   class="form-control" />
+
+
+                        </div>
+
+
+
+
+                        <div class="form-group">
+
+
+                            <label>
+                                Description
+                            </label>
+
+
+<textarea name="Description"
+          class="form-control">
+</textarea>
+
+
+                        </div>
+
+
+
+
+                        <div class="form-group">
+
+
+                            <label>
+                                Milestone
+                            </label>
+
+
+                            @Html.DropDownList(
+                            "MilestoneId",
+                            ViewBag.Milestones as SelectList,
+                            "-- Select --",
+                            new
+                            {
+                            @class = "form-control"
+                            })
+
+
+                        </div>
+
+
+
+
+
+                        <div class="form-group">
+
+
+                            <label>
+                                Status
+                            </label>
+
+
+                            <input type="text"
+                                   name="Status"
+                                   class="form-control" />
+
+
+                        </div>
+
+
+
+
+
+                        <div class="form-group">
+
+
+                            <label>
+                                Responsible
+                            </label>
+
+
+                            <input type="text"
+                                   name="Responsible"
+                                   class="form-control" />
+
+
+                        </div>
+
+
+
+
+
+                        <div class="form-group">
+
+
+                            <label>
+                                Priority
+                            </label>
+
+
+                            <input type="text"
+                                   name="Priority"
+                                   class="form-control" />
+
+
+                        </div>
+
+
+
+
+
+                        <div class="form-group">
+
+
+                            <label>
+                                Due Date
+                            </label>
+
+
+                            <input type="date"
+                                   name="DueDate"
+                                   class="form-control" />
+
+
+                        </div>
+
+
+
+
+
+                        <div class="form-group">
+
+
+                            <label>
+                                Comments
+                            </label>
+
+
+<textarea name="Comments"
+          class="form-control">
+</textarea>
+
+
+                        </div>
+
+
+
+
+                        <br />
+
+
+
+                        <button type="submit"
+                                class="btn btn-success btn-block">
+
+                            Save Task
+
+                        </button>
+
+
+
+                    }
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+
+
+</div>

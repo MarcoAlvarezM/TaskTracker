@@ -1,0 +1,56 @@
+﻿@model IEnumerable<TaskTracker.Data.Project>
+
+@{
+    ViewBag.Title = "Projects";
+}
+
+<h2>Projects</h2>
+
+<p>
+    @Html.ActionLink("Create New Project", "Create", null, new { @class = "btn btn-primary" })
+</p>
+
+<table class="table table-bordered table-striped table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Name</th>
+            <th>Team</th>
+            <th>Estimated Time</th>
+            <th width="220"></th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Team)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.EstimatedTimeOfCompletion)
+                </td>
+
+                <td>
+
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ProjectId }, new { @class = "btn btn-warning btn-sm" })
+
+                    @Html.ActionLink("Details", "Details", new { id = item.ProjectId }, new { @class = "btn btn-info btn-sm" })
+
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ProjectId }, new { @class = "btn btn-danger btn-sm" })
+
+                </td>
+
+            </tr>
+        }
+
+    </tbody>
+
+</table>

@@ -1,0 +1,40 @@
+﻿@model TaskTracker.Data.Project
+
+@{
+    ViewBag.Title = "Project Details";
+}
+
+<h2>Project Details</h2>
+
+<hr />
+
+<dl class="dl-horizontal">
+
+    <dt>Name</dt>
+    <dd>@Model.Name</dd>
+
+    <dt>Description</dt>
+    <dd>@Model.Description</dd>
+
+    <dt>Objetive</dt>
+    <dd>@Model.Objetive</dd>
+
+    <dt>Team</dt>
+    <dd>@Model.Team</dd>
+
+    <dt>Estimated Time</dt>
+    <dd>@Model.EstimatedTimeOfCompletion</dd>
+
+</dl>
+
+<p>
+
+    @Html.ActionLink("Edit", "Edit",
+        new { id = Model.ProjectId },
+        new { @class = "btn btn-warning" })
+
+    @Html.ActionLink("Back", "Index",
+        null,
+        new { @class = "btn btn-secondary" })
+
+</p>

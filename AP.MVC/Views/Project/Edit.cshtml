@@ -1,0 +1,85 @@
+﻿@model TaskTracker.Data.Project
+
+@{
+    ViewBag.Title = "Edit Project";
+}
+
+<h2>Edit Project</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(model => model.ProjectId)
+
+    <div class="form-horizontal">
+
+        <hr />
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.Name)
+
+            @Html.TextBoxFor(model => model.Name,
+                new { @class = "form-control" })
+
+        </div>
+
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.Description)
+
+            @Html.TextAreaFor(model => model.Description,
+                new
+                {
+                    @class = "form-control",
+                    rows = 4
+                })
+
+        </div>
+
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.Objetive)
+
+            @Html.TextAreaFor(model => model.Objetive,
+                new
+                {
+                    @class = "form-control",
+                    rows = 4
+                })
+
+        </div>
+
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.Team)
+
+            @Html.TextBoxFor(model => model.Team,
+                new { @class = "form-control" })
+
+        </div>
+
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.EstimatedTimeOfCompletion)
+
+            @Html.TextBoxFor(model => model.EstimatedTimeOfCompletion,
+                new { @class = "form-control" })
+
+        </div>
+
+        <br />
+
+        <input type="submit"
+               value="Update"
+               class="btn btn-warning" />
+
+        @Html.ActionLink("Back", "Index", null,
+            new { @class = "btn btn-secondary" })
+
+    </div>
+
+}

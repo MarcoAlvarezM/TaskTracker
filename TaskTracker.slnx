@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="AP.MVC/TaskTracker.MVC.csproj" Id="23ce401d-c927-400e-9d7f-2a016cb57fa7" />
+  <Project Path="TaskTracker.Data/TaskTracker.Data.csproj" Id="39579c76-a728-40c8-8987-5f163fc0e704" />
+  <Project Path="TaskTracker.Domain/TaskTracker.Domain.csproj" Id="90721af5-a94b-4050-acc0-ada1b9da5754" />
+</Solution>

@@ -1,0 +1,164 @@
+﻿@using System.Web.Optimization
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <meta charset="utf-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        @ViewBag.Title - Task Tracker
+    </title>
+
+
+    @Styles.Render("~/Content/css")
+
+    @Scripts.Render("~/bundles/modernizr")
+
+
+</head>
+
+
+<body>
+
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+
+        <div class="container">
+
+
+            <a class="navbar-brand"
+               href="@Url.Action("Index","Home")">
+
+                Task Tracker
+
+            </a>
+
+
+
+            <button class="navbar-toggler"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#navbarNav">
+
+                <span class="navbar-toggler-icon"></span>
+
+            </button>
+
+
+
+            <div class="collapse navbar-collapse"
+                 id="navbarNav">
+
+
+
+                <ul class="navbar-nav">
+
+
+                    <li class="nav-item">
+
+                        <a class="nav-link"
+                           href="@Url.Action("Index","Home")">
+
+                            Home
+
+                        </a>
+
+                    </li>
+
+
+
+                    <li class="nav-item">
+
+                        <a class="nav-link"
+                           href="@Url.Action("Index","Project")">
+
+                            Projects
+
+                        </a>
+
+                    </li>
+
+
+
+                    <li class="nav-item">
+
+                        <a class="nav-link"
+                           href="@Url.Action("Index","Milestone")">
+
+                            Milestones
+
+                        </a>
+
+                    </li>
+
+
+
+                    <li class="nav-item">
+
+                        <a class="nav-link"
+                           href="@Url.Action("Index","Task")">
+
+                            Tasks
+
+                        </a>
+
+                    </li>
+
+
+                </ul>
+
+
+
+            </div>
+
+
+        </div>
+
+
+    </nav>
+
+
+
+
+    <div class="container-fluid body-content">
+
+
+        @RenderBody()
+
+
+        <hr />
+
+
+        <footer>
+
+            <p>
+                &copy; @DateTime.Now.Year - Task Tracker
+            </p>
+
+
+        </footer>
+
+
+    </div>
+
+
+
+
+    @Scripts.Render("~/bundles/jquery")
+
+    @Scripts.Render("~/bundles/bootstrap")
+
+
+    @RenderSection("scripts", required: false)
+
+
+</body>
+
+
+</html>

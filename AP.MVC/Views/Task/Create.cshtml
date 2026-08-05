@@ -1,0 +1,169 @@
+﻿@model TaskTracker.Data.Task
+
+@{
+    ViewBag.Title = "Create Task";
+}
+
+
+<h2>Create Task</h2>
+
+
+@using (Html.BeginForm())
+{
+
+    @Html.AntiForgeryToken()
+
+
+    <div class="form-horizontal">
+
+
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.Name)
+
+            @Html.TextBoxFor(
+            model => model.Name,
+            new { @class = "form-control" })
+
+        </div>
+
+
+
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.Description)
+
+            @Html.TextAreaFor(
+            model => model.Description,
+            new
+            {
+            @class = "form-control",
+            rows = 4
+            })
+
+        </div>
+
+
+
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.MilestoneId)
+
+
+            @Html.DropDownList(
+            "MilestoneId",
+            null,
+            "-- Select Milestone --",
+            new
+            {
+            @class = "form-control"
+            })
+
+        </div>
+
+
+
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.Status)
+
+            @Html.TextBoxFor(
+            model => model.Status,
+            new { @class = "form-control" })
+
+        </div>
+
+
+
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.CreatedDate)
+
+            @Html.TextBoxFor(
+            model => model.CreatedDate,
+            "{0:yyyy-MM-dd}",
+            new
+            {
+                @class = "form-control",
+            type = "date"
+            })
+
+        </div>
+
+
+
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.DueDate)
+
+            @Html.TextBoxFor(
+            model => model.DueDate,
+            "{0:yyyy-MM-dd}",
+            new
+            {
+                @class = "form-control",
+            type = "date"
+            })
+
+        </div>
+
+
+
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.Responsible)
+
+            @Html.TextBoxFor(
+            model => model.Responsible,
+            new { @class = "form-control" })
+
+        </div>
+
+
+
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.Priority)
+
+            @Html.TextBoxFor(
+            model => model.Priority,
+            new { @class = "form-control" })
+
+        </div>
+
+
+
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.Comments)
+
+            @Html.TextAreaFor(
+            model => model.Comments,
+            new
+            {
+            @class = "form-control",
+            rows = 4
+            })
+
+        </div>
+
+
+
+        <br />
+
+        <input type="submit"
+               value="Save"
+               class="btn btn-success" />
+
+
+        @Html.ActionLink(
+        "Back",
+        "Index",
+        null,
+        new { @class = "btn btn-secondary" })
+
+
+    </div>
+
+
+}

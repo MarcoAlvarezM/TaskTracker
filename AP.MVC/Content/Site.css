@@ -1,0 +1,59 @@
+﻿/* TASK TRACKER DASHBOARD */
+
+
+.card {
+    border-radius: 10px;
+}
+
+
+.card-header {
+    font-weight: bold;
+}
+
+
+
+.table {
+    background: white;
+}
+
+
+
+.container-fluid {
+    padding-top: 20px;
+}
+
+
+
+/* Drawer */
+
+.task-drawer {
+    position: sticky;
+    top: 20px;
+}
+
+
+
+.btn-block {
+    width: 100%;
+}
+
+
+
+/* Project cards */
+
+.project-card {
+    margin-bottom: 25px;
+}
+
+
+
+.milestone-card {
+    margin-left: 10px;
+}
+
+
+
+
+.task-row:hover {
+    background: #f2f2f2;
+}

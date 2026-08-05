@@ -1,0 +1,12 @@
+C:\Users\Alvm Tech\Documents\TaskTracker\TaskTracker.Data\bin\Debug\TaskTracker.Data.dll.config
+C:\Users\Alvm Tech\Documents\TaskTracker\TaskTracker.Data\bin\Debug\TaskTracker.Data.dll
+C:\Users\Alvm Tech\Documents\TaskTracker\TaskTracker.Data\bin\Debug\TaskTracker.Data.pdb
+C:\Users\Alvm Tech\Documents\TaskTracker\TaskTracker.Data\obj\Debug\TaskTracker.Data.csproj.AssemblyReference.cache
+C:\Users\Alvm Tech\Documents\TaskTracker\TaskTracker.Data\obj\Debug\TaskTracker.Data.csproj.CoreCompileInputs.cache
+C:\Users\Alvm Tech\Documents\TaskTracker\TaskTracker.Data\obj\Debug\TaskTracker.Data.dll
+C:\Users\Alvm Tech\Documents\TaskTracker\TaskTracker.Data\obj\Debug\TaskTracker.Data.pdb
+C:\Users\Alvm Tech\Documents\TaskTracker\TaskTracker.Data\bin\Debug\EntityFramework.dll
+C:\Users\Alvm Tech\Documents\TaskTracker\TaskTracker.Data\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Alvm Tech\Documents\TaskTracker\TaskTracker.Data\bin\Debug\EntityFramework.xml
+C:\Users\Alvm Tech\Documents\TaskTracker\TaskTracker.Data\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Alvm Tech\Documents\TaskTracker\TaskTracker.Data\obj\Debug\TaskTrac.3FB6CB24.Up2Date

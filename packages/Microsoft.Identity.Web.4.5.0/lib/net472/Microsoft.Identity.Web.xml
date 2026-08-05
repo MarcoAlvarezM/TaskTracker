@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.Identity.Web</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Identity.Web.Internal.IdentityOptionsHelpers">
+            <summary>
+            Shared helper methods for identity options configuration and validation.
+            Used by both traditional (MergedOptions) and AOT-compatible paths.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Identity.Web.Internal.IdentityOptionsHelpers.BuildAuthority(Microsoft.Identity.Abstractions.MicrosoftIdentityApplicationOptions)">
+            <summary>
+            Builds the authority URL from the given application options.
+            Handles AAD, B2C, and CIAM scenarios.
+            </summary>
+            <param name="options">The application options containing instance, tenant, and domain information.</param>
+            <returns>The constructed authority URL.</returns>
+        </member>
+    </members>
+</doc>

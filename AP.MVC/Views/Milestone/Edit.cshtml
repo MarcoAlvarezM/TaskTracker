@@ -1,0 +1,61 @@
+﻿@model TaskTracker.Data.Milestone
+
+@{
+    ViewBag.Title = "Edit Milestone";
+}
+
+<h2>Edit Milestone</h2>
+
+@using (Html.BeginForm())
+{
+
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(model => model.Id)
+
+    <div class="form-horizontal">
+
+        <hr />
+
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.ProjectId)
+
+            @Html.DropDownList("ProjectId",
+                null,
+                new { @class = "form-control" })
+
+        </div>
+
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.Name)
+
+            @Html.TextBoxFor(model => model.Name,
+                new { @class = "form-control" })
+
+        </div>
+
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.Status)
+
+            @Html.TextBoxFor(model => model.Status,
+                new { @class = "form-control" })
+
+        </div>
+
+        <br />
+
+        <input type="submit"
+               value="Update"
+               class="btn btn-warning" />
+
+        @Html.ActionLink("Back",
+            "Index",
+            null,
+            new { @class = "btn btn-secondary" })
+
+    </div>
+
+}

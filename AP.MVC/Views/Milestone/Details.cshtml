@@ -1,0 +1,36 @@
+﻿@model TaskTracker.Data.Milestone
+
+@{
+    ViewBag.Title = "Milestone Details";
+}
+
+<h2>Milestone Details</h2>
+
+<hr />
+
+<dl class="dl-horizontal">
+
+    <dt>Project</dt>
+    <dd>@Model.Project.Name</dd>
+
+    <dt>Name</dt>
+    <dd>@Model.Name</dd>
+
+    <dt>Status</dt>
+    <dd>@Model.Status</dd>
+
+</dl>
+
+<p>
+
+    @Html.ActionLink("Edit",
+        "Edit",
+        new { id = Model.Id },
+        new { @class = "btn btn-warning" })
+
+    @Html.ActionLink("Back",
+        "Index",
+        null,
+        new { @class = "btn btn-secondary" })
+
+</p>
