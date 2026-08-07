@@ -1,6 +1,22 @@
-.vs/
+# Build
 bin/
 obj/
+
+# Visual Studio
+.vs/
 *.user
 *.suo
-*.vsidx
+
+# Debug
+Debug/
+Release/
+
+# Symbols
+*.pdb
+
+# Cache
+*.cache
+
+# Temp
+TempPE/
+
