@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using TaskTracker.Data;
 
@@ -12,12 +13,15 @@ namespace TaskTracker.MVC.Controllers
 
         public ActionResult Index()
         {
-
             var projects = db.Projects
                 .Include("Milestones.Tasks")
                 .ToList();
 
+            return View(projects);
+        }
 
+        public ActionResult CreateTask()
+        {
             ViewBag.Milestones =
                 new SelectList(
                     db.Milestones,
@@ -25,7 +29,34 @@ namespace TaskTracker.MVC.Controllers
                     "Name");
 
 
-            return View(projects);
+            ViewBag.StatusList =
+                new SelectList(
+                    Enum.GetValues(typeof(TaskTracker.Domain.Enums.TaskStatus))
+                    .Cast<TaskTracker.Domain.Enums.TaskStatus>()
+                    .Select(x => new
+                    {
+                        Value = (int)x,
+                        Text = x.ToString()
+                    }),
+                    "Value",
+                    "Text");
+
+
+            ViewBag.PriorityList =
+                new SelectList(
+                    Enum.GetValues(typeof(TaskTracker.Domain.Enums.TaskPriority))
+                    .Cast<TaskTracker.Domain.Enums.TaskPriority>()
+                    .Select(x => new
+                    {
+                        Value = (int)x,
+                        Text = x.ToString()
+                    }),
+                    "Value",
+                    "Text");
+
+
+            return PartialView("_CreateTask",
+                new Task());
         }
 
 

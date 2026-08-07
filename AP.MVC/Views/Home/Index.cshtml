@@ -90,7 +90,7 @@
                                     <br />
 
                                     Status:
-                                    @milestone.Status
+                                    @(((TaskTracker.Domain.Enums.MilestoneStatus)milestone.Status).ToString())
 
 
                                 </div>
@@ -136,7 +136,7 @@
 
                                                 <td>
 
-                                                    @task.Status
+                                                    @(((TaskTracker.Domain.Enums.TaskStatus)task.Status).ToString())
 
                                                 </td>
 
@@ -150,7 +150,7 @@
 
                                                 <td>
 
-                                                    @task.Priority
+                                                    @(((TaskTracker.Domain.Enums.TaskPriority)task.Priority).ToString())
 
                                                 </td>
 
@@ -199,202 +199,67 @@
 
             <div class="card">
 
-
                 <div class="card-header bg-success text-white">
 
-
                     <h4>
-                        Create Task
+                        Quick Create
                     </h4>
 
-
                 </div>
-
 
 
                 <div class="card-body">
 
 
+                    <div class="d-grid gap-2">
 
-                    @using (Html.BeginForm(
-                    "CreateTask",
-                    "Home",
-                    FormMethod.Post))
-                    {
 
+                        <button class="btn btn-success create-btn"
+                                data-type="Task">
 
-                        <div class="form-group">
-
-
-                            <label>
-                                Name
-                            </label>
-
-
-                            <input type="text"
-                                   name="Name"
-                                   class="form-control" />
-
-
-                        </div>
-
-
-
-
-                        <div class="form-group">
-
-
-                            <label>
-                                Description
-                            </label>
-
-
-<textarea name="Description"
-          class="form-control">
-</textarea>
-
-
-                        </div>
-
-
-
-
-                        <div class="form-group">
-
-
-                            <label>
-                                Milestone
-                            </label>
-
-
-                            @Html.DropDownList(
-                            "MilestoneId",
-                            ViewBag.Milestones as SelectList,
-                            "-- Select --",
-                            new
-                            {
-                            @class = "form-control"
-                            })
-
-
-                        </div>
-
-
-
-
-
-                        <div class="form-group">
-
-
-                            <label>
-                                Status
-                            </label>
-
-
-                            <input type="text"
-                                   name="Status"
-                                   class="form-control" />
-
-
-                        </div>
-
-
-
-
-
-                        <div class="form-group">
-
-
-                            <label>
-                                Responsible
-                            </label>
-
-
-                            <input type="text"
-                                   name="Responsible"
-                                   class="form-control" />
-
-
-                        </div>
-
-
-
-
-
-                        <div class="form-group">
-
-
-                            <label>
-                                Priority
-                            </label>
-
-
-                            <input type="text"
-                                   name="Priority"
-                                   class="form-control" />
-
-
-                        </div>
-
-
-
-
-
-                        <div class="form-group">
-
-
-                            <label>
-                                Due Date
-                            </label>
-
-
-                            <input type="date"
-                                   name="DueDate"
-                                   class="form-control" />
-
-
-                        </div>
-
-
-
-
-
-                        <div class="form-group">
-
-
-                            <label>
-                                Comments
-                            </label>
-
-
-<textarea name="Comments"
-          class="form-control">
-</textarea>
-
-
-                        </div>
-
-
-
-
-                        <br />
-
-
-
-                        <button type="submit"
-                                class="btn btn-success btn-block">
-
-                            Save Task
+                            Create Task
 
                         </button>
 
 
 
-                    }
+                        <button class="btn btn-secondary create-btn"
+                                data-type="Milestone">
+
+                            Create Milestone
+
+                        </button>
+
+
+
+                        <button class="btn btn-primary create-btn"
+                                data-type="Project">
+
+                            Create Project
+
+                        </button>
+
+
+                    </div>
+
+
+                    <hr />
+
+
+                    <div id="drawer-content">
+
+                    </div>
+
+
+                    <hr />
+
+
+                    <div id="drawer-content">
+
+                    </div>
 
 
                 </div>
-
 
             </div>
 
@@ -407,3 +272,29 @@
 
 
 </div>
+
+@section scripts {
+
+    <script>
+
+        $(document).ready(function () {
+
+
+            $(".create-btn").click(function () {
+
+                var type = $(this).data("type");
+
+
+                $("#drawer-content")
+                    .load("/Home/Create" + type);
+
+
+            });
+
+
+        });
+
+
+    </script>
+
+}

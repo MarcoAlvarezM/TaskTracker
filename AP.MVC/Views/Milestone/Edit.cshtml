@@ -53,12 +53,15 @@
 
             @Html.LabelFor(model => model.Status)
 
-            @Html.TextBoxFor(model => model.Status,
-            new
-            {
-                @class = "form-control",
-                required = "required"
-            })
+            @Html.DropDownListFor(
+                model => model.Status,
+                (IEnumerable<SelectListItem>)ViewBag.StatusList,
+                "-- Select Status --",
+                new
+                {
+                    @class = "form-control",
+                    required = "required"
+                })
 
         </div>
 

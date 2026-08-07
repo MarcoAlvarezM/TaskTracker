@@ -1,4 +1,5 @@
 ﻿@model TaskTracker.Data.Task
+@using System.Web.Mvc
 
 @{
     ViewBag.Title = "Create Task";
@@ -74,32 +75,17 @@
 
             @Html.LabelFor(model => model.Status)
 
-            @Html.TextBoxFor(model => model.Status,
-            new
-            {
-                @class = "form-control",
-                required = "required"
-            })
+            @Html.DropDownListFor(
+                model => model.Status,
+                (IEnumerable<SelectListItem>)ViewBag.StatusList,
+                "-- Select Status --",
+                new
+                {
+                    @class = "form-control",
+                    required = "required"
+                })
 
         </div>
-
-
-
-        <div class="form-group">
-
-            @Html.LabelFor(model => model.CreatedDate)
-
-            @Html.TextBoxFor(
-            model => model.CreatedDate,
-            "{0:yyyy-MM-dd}",
-            new
-            {
-                @class = "form-control",
-            type = "date"
-            })
-
-        </div>
-
 
 
         <div class="form-group">
@@ -139,12 +125,15 @@
 
             @Html.LabelFor(model => model.Priority)
 
-            @Html.TextBoxFor(model => model.Priority,
-            new
-            {
-                @class = "form-control",
-                required = "required"
-            })
+            @Html.DropDownListFor(
+                model => model.Priority,
+                (IEnumerable<SelectListItem>)ViewBag.PriorityList,
+                "-- Select Priority --",
+                new
+                {
+                    @class = "form-control",
+                    required = "required"
+                })
 
         </div>
 

@@ -18,12 +18,12 @@ namespace TaskTracker.Data
         public string Name { get; set; }
         public string Description { get; set; }
         public int MilestoneId { get; set; }
-        public string Status { get; set; }
+        public int Status { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public System.DateTime DueDate { get; set; }
         public System.DateTime ModifiedDate { get; set; }
         public string Responsible { get; set; }
-        public string Priority { get; set; }
+        public int Priority { get; set; }
         public string Comments { get; set; }
     
         public virtual Milestone Milestone { get; set; }

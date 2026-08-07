@@ -52,7 +52,7 @@
 
 
                 <td>
-                    @item.Status
+                    @(((TaskTracker.Domain.Enums.TaskStatus)item.Status).ToString())
                 </td>
 
 
@@ -62,7 +62,7 @@
 
 
                 <td>
-                    @item.Priority
+                    @(((TaskTracker.Domain.Enums.TaskStatus)item.Priority).ToString())
                 </td>
 
 

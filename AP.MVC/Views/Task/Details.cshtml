@@ -26,7 +26,7 @@
 
 
     <dt>Status</dt>
-    <dd>@Model.Status</dd>
+    <dd>@(((TaskTracker.Domain.Enums.TaskStatus)@Model.Status).ToString())</dd>
 
 
     <dt>Created Date</dt>
@@ -46,7 +46,7 @@
 
 
     <dt>Priority</dt>
-    <dd>@Model.Priority</dd>
+    <dd>@(((TaskTracker.Domain.Enums.MilestoneStatus)@Model.Priority).ToString())</dd>
 
 
     <dt>Comments</dt>

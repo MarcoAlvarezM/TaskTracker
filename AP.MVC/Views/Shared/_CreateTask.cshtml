@@ -1,0 +1,147 @@
+@model TaskTracker.Data.Task
+@using System.Web.Mvc
+
+@using (Html.BeginForm("CreateTask", "Home", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+
+    <div class="form-group">
+
+        <label>Name</label>
+
+        @Html.TextBoxFor(
+            model => model.Name,
+            new
+            {
+                @class = "form-control",
+                required = "required"
+            })
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>Description</label>
+
+        @Html.TextAreaFor(
+            model => model.Description,
+            new
+            {
+                @class = "form-control",
+                rows = 4
+            })
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>Milestone</label>
+
+        @Html.DropDownList(
+            "MilestoneId",
+            ViewBag.Milestones as SelectList,
+            "-- Select --",
+            new
+            {
+                @class = "form-control",
+                required = "required"
+            })
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>Status</label>
+
+        @Html.DropDownList(
+            "Status",
+            ViewBag.StatusList as SelectList,
+            "-- Select Status --",
+            new
+            {
+                @class = "form-control",
+                required = "required"
+            })
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>Responsible</label>
+
+        @Html.TextBoxFor(
+            model => model.Responsible,
+            new
+            {
+                @class = "form-control",
+                required = "required"
+            })
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>Priority</label>
+
+        @Html.DropDownList(
+            "Priority",
+            ViewBag.PriorityList as SelectList,
+            "-- Select Priority --",
+            new
+            {
+                @class = "form-control",
+                required = "required"
+            })
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>Due Date</label>
+
+        @Html.TextBoxFor(
+            model => model.DueDate,
+            "{0:yyyy-MM-dd}",
+            new
+            {
+                @class = "form-control",
+                type = "date",
+                required = "required"
+            })
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>Comments</label>
+
+        @Html.TextAreaFor(
+            model => model.Comments,
+            new
+            {
+                @class = "form-control",
+                rows = 4
+            })
+
+    </div>
+
+
+    <br />
+
+
+    <button type="submit"
+            class="btn btn-success btn-block">
+
+        Save Task
+
+    </button>
+
+}

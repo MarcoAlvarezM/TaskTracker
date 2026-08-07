@@ -19,7 +19,7 @@ CREATE TABLE Milestone
     Id INT IDENTITY(1,1) PRIMARY KEY,
     ProjectId INT NOT NULL,
     Name NVARCHAR(100) NOT NULL,
-    Status NVARCHAR(50) NOT NULL,
+    Status INT NOT NULL,
 
     CONSTRAINT FK_Milestone_Project
         FOREIGN KEY(ProjectId)
@@ -32,13 +32,18 @@ CREATE TABLE Task
     Name NVARCHAR(100) NOT NULL,
     Description NVARCHAR(MAX) NOT NULL,
     MilestoneId INT NOT NULL,
-    Status NVARCHAR(50) NOT NULL,
+
+    Status INT NOT NULL,
+
     CreatedDate DATETIME NOT NULL,
     DueDate DATETIME NOT NULL,
     ModifiedDate DATETIME NOT NULL,
+
     Responsible NVARCHAR(100) NOT NULL,
-    Priority NVARCHAR(50) NOT NULL,
-    Comments NVARCHAR(MAX) NOT NULL,
+
+    Priority INT NOT NULL,
+
+    Comments NVARCHAR(MAX) NULL,
 
     CONSTRAINT FK_Task_Milestone
         FOREIGN KEY(MilestoneId)

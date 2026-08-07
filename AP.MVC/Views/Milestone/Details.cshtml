@@ -17,7 +17,7 @@
     <dd>@Model.Name</dd>
 
     <dt>Status</dt>
-    <dd>@Model.Status</dd>
+    <dd>@(((TaskTracker.Domain.Enums.MilestoneStatus)@Model.Status).ToString())</dd>
 
 </dl>
 

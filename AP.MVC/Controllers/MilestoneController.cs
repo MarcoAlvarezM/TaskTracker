@@ -1,6 +1,8 @@
 ﻿using System.Web.Mvc;
 using TaskTracker.Data;
 using TaskTracker.Domain;
+using TaskTracker.Domain.Enums;
+using TaskTracker.Domain.Helpers;
 
 namespace TaskTracker.MVC.Controllers
 {
@@ -18,9 +20,24 @@ namespace TaskTracker.MVC.Controllers
             return View(service.GetById(id));
         }
 
+        private void LoadDropDowns(int? projectId = null, int? status = null)
+        {
+            ViewBag.ProjectId = new SelectList(
+                service.GetProjects(),
+                "ProjectId",
+                "Name",
+                projectId);
+
+            ViewBag.StatusList = new SelectList(
+                EnumHelper.GetSelectList<MilestoneStatus>(),
+                "Value",
+                "Text",
+                status);
+        }
+
         public ActionResult Create()
         {
-            ViewBag.ProjectId = new SelectList(service.GetProjects(), "ProjectId", "Name");
+            LoadDropDowns();
             return View();
         }
 
@@ -33,7 +50,8 @@ namespace TaskTracker.MVC.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ProjectId = new SelectList(service.GetProjects(), "ProjectId", "Name", milestone.ProjectId);
+            LoadDropDowns(milestone.ProjectId, milestone.Status);
+
             return View(milestone);
         }
 
@@ -41,7 +59,7 @@ namespace TaskTracker.MVC.Controllers
         {
             Milestone milestone = service.GetById(id);
 
-            ViewBag.ProjectId = new SelectList(service.GetProjects(), "ProjectId", "Name", milestone.ProjectId);
+            LoadDropDowns(milestone.ProjectId, milestone.Status);
 
             return View(milestone);
         }
@@ -55,7 +73,7 @@ namespace TaskTracker.MVC.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ProjectId = new SelectList(service.GetProjects(), "ProjectId", "Name", milestone.ProjectId);
+            LoadDropDowns(milestone.ProjectId, milestone.Status);
 
             return View(milestone);
         }

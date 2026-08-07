@@ -1,6 +1,9 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using TaskTracker.Data;
 using TaskTracker.Domain;
+using TaskTracker.Domain.Enums;
+using TaskTracker.Domain.Helpers;
 
 namespace TaskTracker.MVC.Controllers
 {
@@ -18,9 +21,30 @@ namespace TaskTracker.MVC.Controllers
             return View(service.GetById(id));
         }
 
+        private void LoadDropDowns(int? milestoneId = null, int? status = null, int? priority = null)
+        {
+            ViewBag.MilestoneId = new SelectList(
+                service.GetMilestones(),
+                "Id",
+                "Name",
+                milestoneId);
+
+            ViewBag.StatusList = new SelectList(
+                EnumHelper.GetSelectList<TaskStatus>(),
+                "Value",
+                "Text",
+                status);
+
+            ViewBag.PriorityList = new SelectList(
+                EnumHelper.GetSelectList<TaskPriority>(),
+                "Value",
+                "Text",
+                priority);
+        }
+
         public ActionResult Create()
         {
-            ViewBag.MilestoneId = new SelectList(service.GetMilestones(), "Id", "Name");
+            LoadDropDowns();
             return View();
         }
 
@@ -29,11 +53,13 @@ namespace TaskTracker.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
+                task.CreatedDate = DateTime.Now;
+                task.ModifiedDate = DateTime.Now;
                 service.Add(task);
                 return RedirectToAction("Index");
             }
 
-            ViewBag.MilestoneId = new SelectList(service.GetMilestones(), "Id", "Name", task.MilestoneId);
+            LoadDropDowns(task.MilestoneId, task.Status, task.Priority);
             return View(task);
         }
 
@@ -41,7 +67,7 @@ namespace TaskTracker.MVC.Controllers
         {
             Task task = service.GetById(id);
 
-            ViewBag.MilestoneId = new SelectList(service.GetMilestones(), "Id", "Name", task.MilestoneId);
+            LoadDropDowns(task.MilestoneId, task.Status, task.Priority);
 
             return View(task);
         }
@@ -51,11 +77,12 @@ namespace TaskTracker.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
+                task.ModifiedDate = DateTime.Now;
                 service.Update(task);
                 return RedirectToAction("Index");
             }
 
-            ViewBag.MilestoneId = new SelectList(service.GetMilestones(), "Id", "Name", task.MilestoneId);
+            LoadDropDowns(task.MilestoneId, task.Status, task.Priority);
 
             return View(task);
         }
