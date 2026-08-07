@@ -58,14 +58,14 @@
 
 
             @Html.DropDownList(
-            "MilestoneId",
-            null,
-            "-- Select Milestone --",
-            new
-            {
-                @class = "form-control",
-                required = "required"
-            })
+                "MilestoneId",
+                ViewBag.Milestones as SelectList,
+                "-- Select Milestone --",
+                new
+                {
+                    @class = "form-control",
+                    required = "required"
+                })
 
         </div>
 

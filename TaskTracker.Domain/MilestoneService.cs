@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using TaskTracker.Data;
@@ -36,15 +37,27 @@ namespace TaskTracker.Domain
             db.SaveChanges();
         }
 
-        public void Delete(int id)
+        public bool Delete(int id, out string message)
         {
-            var milestone = db.Milestones.Find(id);
+            Milestone milestone = db.Milestones.Find(id);
 
-            if (milestone != null)
+            if (milestone == null)
             {
-                db.Milestones.Remove(milestone);
-                db.SaveChanges();
+                message = "Milestone not found.";
+                return false;
             }
+
+            if (milestone.Tasks.Any())
+            {
+                message = "Cannot delete this milestone because it contains tasks. Delete or move the tasks first.";
+                return false;
+            }
+
+            db.Milestones.Remove(milestone);
+            db.SaveChanges();
+
+            message = string.Empty;
+            return true;
         }
     }
 }

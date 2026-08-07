@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Web.Mvc;
 using TaskTracker.Data;
+using TaskTracker.Domain.Enums;
+using TaskTracker.Domain.Helpers;
 
 namespace TaskTracker.MVC.Controllers
 {
@@ -22,40 +24,28 @@ namespace TaskTracker.MVC.Controllers
 
         public ActionResult CreateTask()
         {
+
             ViewBag.Milestones =
-                new SelectList(
-                    db.Milestones,
-                    "Id",
-                    "Name");
+                DropdownHelper.GetMilestones(
+                    db.Milestones);
 
 
             ViewBag.StatusList =
                 new SelectList(
-                    Enum.GetValues(typeof(TaskTracker.Domain.Enums.TaskStatus))
-                    .Cast<TaskTracker.Domain.Enums.TaskStatus>()
-                    .Select(x => new
-                    {
-                        Value = (int)x,
-                        Text = x.ToString()
-                    }),
+                    EnumHelper.GetSelectList<TaskStatus>(),
                     "Value",
                     "Text");
 
 
             ViewBag.PriorityList =
                 new SelectList(
-                    Enum.GetValues(typeof(TaskTracker.Domain.Enums.TaskPriority))
-                    .Cast<TaskTracker.Domain.Enums.TaskPriority>()
-                    .Select(x => new
-                    {
-                        Value = (int)x,
-                        Text = x.ToString()
-                    }),
+                    EnumHelper.GetSelectList<TaskPriority>(),
                     "Value",
                     "Text");
 
 
-            return PartialView("_CreateTask",
+            return PartialView(
+                "_CreateTask",
                 new Task());
         }
 

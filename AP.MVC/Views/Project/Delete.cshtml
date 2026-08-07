@@ -6,9 +6,21 @@
 
 <h2>Delete Project</h2>
 
-<h3>Are you sure you want to delete this project?</h3>
-
 <hr />
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Success"]
+    </div>
+}
 
 <dl class="dl-horizontal">
 
@@ -18,7 +30,7 @@
     <dt>Description</dt>
     <dd>@Model.Description</dd>
 
-    <dt>Objetive</dt>
+    <dt>Objective</dt>
     <dd>@Model.Objetive</dd>
 
     <dt>Team</dt>
@@ -29,17 +41,34 @@
 
 </dl>
 
-@using (Html.BeginForm())
+@if ((bool)ViewBag.HasMilestones)
 {
-    @Html.AntiForgeryToken()
+    <div class="alert alert-warning">
+        This project contains milestones and cannot be deleted until all associated milestones are removed.
+    </div>
 
-    @Html.HiddenFor(model => model.ProjectId)
-
-    <input type="submit"
-           value="Delete"
-           class="btn btn-danger" />
-
-    @Html.ActionLink("Cancel", "Index",
+    @Html.ActionLink(
+        "Back",
+        "Index",
         null,
         new { @class = "btn btn-secondary" })
+}
+else
+{
+    using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(model => model.ProjectId)
+
+        <input type="submit"
+               value="Delete"
+               class="btn btn-danger" />
+
+        @Html.ActionLink(
+            "Cancel",
+            "Index",
+            null,
+            new { @class = "btn btn-secondary" })
+    }
 }

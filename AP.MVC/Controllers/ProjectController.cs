@@ -54,14 +54,27 @@ namespace TaskTracker.MVC.Controllers
 
         public ActionResult Delete(int id)
         {
-            return View(service.GetById(id));
+            Project project = service.GetById(id);
+
+            ViewBag.HasMilestones = service.HasMilestones(id);
+
+            return View(project);
         }
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            service.Delete(id);
-            return RedirectToAction("Index");
+            string message;
+
+            if (service.Delete(id, out message))
+            {
+                TempData["Success"] = "Project deleted successfully.";
+                return RedirectToAction("Index");
+            }
+
+            TempData["Error"] = message;
+
+            return RedirectToAction("Delete", new { id });
         }
     }
 }

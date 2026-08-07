@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
 using TaskTracker.Data;
 using TaskTracker.Domain;
 using TaskTracker.Domain.Enums;
@@ -80,14 +81,27 @@ namespace TaskTracker.MVC.Controllers
 
         public ActionResult Delete(int id)
         {
-            return View(service.GetById(id));
+            Milestone milestone = service.GetById(id);
+
+            ViewBag.HasTasks = milestone.Tasks.Any();
+
+            return View(milestone);
         }
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            service.Delete(id);
-            return RedirectToAction("Index");
+            string message;
+
+            if (service.Delete(id, out message))
+            {
+                TempData["Success"] = "Milestone deleted successfully.";
+                return RedirectToAction("Index");
+            }
+
+            TempData["Error"] = message;
+
+            return RedirectToAction("Delete", new { id });
         }
     }
 }

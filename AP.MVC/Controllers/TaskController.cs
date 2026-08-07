@@ -23,11 +23,10 @@ namespace TaskTracker.MVC.Controllers
 
         private void LoadDropDowns(int? milestoneId = null, int? status = null, int? priority = null)
         {
-            ViewBag.MilestoneId = new SelectList(
-                service.GetMilestones(),
-                "Id",
-                "Name",
-                milestoneId);
+            ViewBag.Milestones =
+                DropdownHelper.GetMilestones(
+                    service.GetMilestones(),
+                    milestoneId);
 
             ViewBag.StatusList = new SelectList(
                 EnumHelper.GetSelectList<TaskStatus>(),
