@@ -203,6 +203,8 @@
     <Content Include="Views\Task\Details.cshtml" />
     <Content Include="Views\Task\Delete.cshtml" />
     <Content Include="Views\Shared\_CreateTask.cshtml" />
+    <Content Include="Views\Shared\_CreateMilestone.cshtml" />
+    <Content Include="Views\Shared\_CreateProject.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

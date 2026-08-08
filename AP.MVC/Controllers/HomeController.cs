@@ -22,66 +22,6 @@ namespace TaskTracker.MVC.Controllers
             return View(projects);
         }
 
-        public ActionResult CreateTask()
-        {
-
-            ViewBag.Milestones =
-                DropdownHelper.GetMilestones(
-                    db.Milestones);
-
-
-            ViewBag.StatusList =
-                new SelectList(
-                    EnumHelper.GetSelectList<TaskStatus>(),
-                    "Value",
-                    "Text");
-
-
-            ViewBag.PriorityList =
-                new SelectList(
-                    EnumHelper.GetSelectList<TaskPriority>(),
-                    "Value",
-                    "Text");
-
-
-            return PartialView(
-                "_CreateTask",
-                new Task());
-        }
-
-
-        [HttpPost]
-        public ActionResult CreateTask(Task task)
-        {
-
-            if (ModelState.IsValid)
-            {
-
-                task.CreatedDate = System.DateTime.Now;
-
-                task.ModifiedDate = System.DateTime.Now;
-
-
-                db.Tasks.Add(task);
-
-                db.SaveChanges();
-
-
-                return RedirectToAction("Index");
-            }
-
-
-            ViewBag.Milestones =
-                new SelectList(
-                    db.Milestones,
-                    "Id",
-                    "Name");
-
-
-            return RedirectToAction("Index");
-        }
-
-
 
         protected override void Dispose(bool disposing)
         {

@@ -196,7 +196,6 @@
 
         <div class="col-md-3 task-drawer">
 
-
             <div class="card">
 
                 <div class="card-header bg-success text-white">
@@ -210,11 +209,10 @@
 
                 <div class="card-body">
 
-
                     <div class="d-grid gap-2">
 
-
-                        <button class="btn btn-success create-btn"
+                        <button type="button"
+                                class="btn btn-success create-btn"
                                 data-type="Task">
 
                             Create Task
@@ -222,8 +220,8 @@
                         </button>
 
 
-
-                        <button class="btn btn-secondary create-btn"
+                        <button type="button"
+                                class="btn btn-secondary create-btn"
                                 data-type="Milestone">
 
                             Create Milestone
@@ -231,15 +229,14 @@
                         </button>
 
 
-
-                        <button class="btn btn-primary create-btn"
+                        <button type="button"
+                                class="btn btn-primary create-btn"
                                 data-type="Project">
 
                             Create Project
 
                         </button>
 
-
                     </div>
 
 
@@ -247,22 +244,11 @@
 
 
                     <div id="drawer-content">
-
                     </div>
-
-
-                    <hr />
-
-
-                    <div id="drawer-content">
-
-                    </div>
-
 
                 </div>
 
             </div>
-
 
         </div>
 
@@ -273,27 +259,26 @@
 
 </div>
 
+
 @section scripts {
 
     <script>
 
         $(document).ready(function () {
 
-
             $(".create-btn").click(function () {
 
                 var type = $(this).data("type");
 
+                var controller = type;
 
-                $("#drawer-content")
-                    .load("/Home/Create" + type);
-
+                $("#drawer-content").load(
+                    "/" + controller + "/Create?partial=true"
+                );
 
             });
 
-
         });
-
 
     </script>
 

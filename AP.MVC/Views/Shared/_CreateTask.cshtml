@@ -1,49 +1,67 @@
 @model TaskTracker.Data.Task
-@using System.Web.Mvc
 
-@using (Html.BeginForm("CreateTask", "Home", FormMethod.Post))
+@using (Html.BeginForm(
+    "Create",
+    "Task",
+    FormMethod.Post))
 {
     @Html.AntiForgeryToken()
+
+    @Html.Hidden(
+        "fromHome",
+        "true")
 
 
     <div class="form-group">
 
-        <label>Name</label>
+        @Html.LabelFor(model => model.Name)
 
         @Html.TextBoxFor(
             model => model.Name,
             new
             {
                 @class = "form-control",
-                required = "required"
+                required = "required",
+                maxlength = "100"
             })
+
+        @Html.ValidationMessageFor(
+            model => model.Name,
+            "",
+            new { @class = "text-danger" })
 
     </div>
 
 
     <div class="form-group">
 
-        <label>Description</label>
+        @Html.LabelFor(model => model.Description)
 
         @Html.TextAreaFor(
             model => model.Description,
             new
             {
                 @class = "form-control",
-                rows = 4
+                rows = 4,
+                required = "required"
             })
+
+        @Html.ValidationMessageFor(
+            model => model.Description,
+            "",
+            new { @class = "text-danger" })
 
     </div>
 
 
     <div class="form-group">
 
-        <label>Milestone</label>
+        @Html.LabelFor(model => model.MilestoneId)
 
         @Html.DropDownList(
             "MilestoneId",
             ViewBag.Milestones as SelectList,
-            "-- Select --",
+            "-- Select Milestone --",
             new
             {
                 @class = "form-control",
@@ -55,11 +73,11 @@
 
     <div class="form-group">
 
-        <label>Status</label>
+        @Html.LabelFor(model => model.Status)
 
-        @Html.DropDownList(
-            "Status",
-            ViewBag.StatusList as SelectList,
+        @Html.DropDownListFor(
+            model => model.Status,
+            (IEnumerable<SelectListItem>)ViewBag.StatusList,
             "-- Select Status --",
             new
             {
@@ -72,7 +90,7 @@
 
     <div class="form-group">
 
-        <label>Responsible</label>
+        @Html.LabelFor(model => model.Responsible)
 
         @Html.TextBoxFor(
             model => model.Responsible,
@@ -87,11 +105,11 @@
 
     <div class="form-group">
 
-        <label>Priority</label>
+        @Html.LabelFor(model => model.Priority)
 
-        @Html.DropDownList(
-            "Priority",
-            ViewBag.PriorityList as SelectList,
+        @Html.DropDownListFor(
+            model => model.Priority,
+            (IEnumerable<SelectListItem>)ViewBag.PriorityList,
             "-- Select Priority --",
             new
             {
@@ -104,7 +122,7 @@
 
     <div class="form-group">
 
-        <label>Due Date</label>
+        @Html.LabelFor(model => model.DueDate)
 
         @Html.TextBoxFor(
             model => model.DueDate,
@@ -121,14 +139,15 @@
 
     <div class="form-group">
 
-        <label>Comments</label>
+        @Html.LabelFor(model => model.Comments)
 
         @Html.TextAreaFor(
             model => model.Comments,
             new
             {
                 @class = "form-control",
-                rows = 4
+                rows = 4,
+                required = "required"
             })
 
     </div>
@@ -136,12 +155,10 @@
 
     <br />
 
-
     <button type="submit"
             class="btn btn-success btn-block">
 
         Save Task
 
     </button>
-
 }

@@ -1,0 +1,86 @@
+@model TaskTracker.Data.Milestone
+
+@using (Html.BeginForm(
+    "Create",
+    "Milestone",
+    FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.Hidden(
+        "fromHome",
+        "true")
+
+
+    <div class="form-group">
+
+        @Html.LabelFor(
+            model => model.ProjectId)
+
+        @Html.DropDownList(
+            "ProjectId",
+            ViewBag.ProjectId as SelectList,
+            "-- Select Project --",
+            new
+            {
+                @class = "form-control",
+                required = "required"
+            })
+
+    </div>
+
+
+    <div class="form-group">
+
+        @Html.LabelFor(
+            model => model.Name)
+
+        @Html.TextBoxFor(
+            model => model.Name,
+            new
+            {
+                @class = "form-control",
+                required = "required",
+                maxlength = "100"
+            })
+
+        @Html.ValidationMessageFor(
+            model => model.Name,
+            "",
+            new
+            {
+                @class = "text-danger"
+            })
+
+    </div>
+
+
+    <div class="form-group">
+
+        @Html.LabelFor(
+            model => model.Status)
+
+        @Html.DropDownListFor(
+            model => model.Status,
+            (IEnumerable<SelectListItem>)
+                ViewBag.StatusList,
+            "-- Select Status --",
+            new
+            {
+                @class = "form-control",
+                required = "required"
+            })
+
+    </div>
+
+
+    <br />
+
+
+    <button type="submit"
+            class="btn btn-secondary btn-block">
+
+        Save Milestone
+
+    </button>
+}
