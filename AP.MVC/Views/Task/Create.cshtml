@@ -59,14 +59,14 @@
 
         @Html.DropDownListFor(
             model => model.MilestoneId,
-            (IEnumerable<SelectListItem>)ViewBag.MilestoneId,
+            (IEnumerable<SelectListItem>)ViewBag.Milestones,
             "-- Select Milestone --",
             new
-            { 
+            {
                 @class = "form-control",
                 required = "required"
             })
-        
+
         @Html.ValidationMessageFor(
            model => model.MilestoneId)
 
