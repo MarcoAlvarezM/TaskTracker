@@ -31,7 +31,7 @@ namespace TaskTracker.MVC.Controllers
             int? responsibleId = null,
             int? assigneeId = null)
         {
-            ViewBag.MilestoneId =
+            ViewBag.Milestones =
                 DropdownHelper.GetMilestones(
                     service.GetMilestones(),
                     milestoneId);

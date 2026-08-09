@@ -114,7 +114,9 @@
                                             <th>Name</th>
                                             <th>Status</th>
                                             <th>Responsible</th>
+                                            <th>Asignee</th>
                                             <th>Priority</th>
+                                            <th>Due Date</th>
 
                                         </tr>
 
@@ -143,7 +145,14 @@
 
                                                 <td>
 
-                                                    @task.ResponsibleId
+                                                    @task.User1.Name
+
+                                                </td>
+
+
+                                                <td>
+
+                                                    @task.User.Name
 
                                                 </td>
 
@@ -154,6 +163,12 @@
 
                                                 </td>
 
+
+                                                <td>
+
+                                                    @task.DueDate
+
+                                                </td>
 
                                             </tr>
 

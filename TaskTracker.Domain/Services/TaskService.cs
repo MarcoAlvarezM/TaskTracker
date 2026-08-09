@@ -32,7 +32,9 @@ namespace TaskTracker.Domain
 
         public List<Milestone> GetMilestones()
         {
-            return db.Milestones.ToList();
+            return db.Milestones
+                .Include(m => m.Project)
+                .ToList();
         }
 
         public List<User> GetActiveUsers()

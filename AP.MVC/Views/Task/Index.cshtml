@@ -25,6 +25,7 @@
             <th>Milestone</th>
             <th>Status</th>
             <th>Responsible</th>
+            <th>Assignee</th>
             <th>Priority</th>
             <th>Due Date</th>
             <th></th>
@@ -55,9 +56,12 @@
                     @(((TaskTracker.Domain.Enums.TaskStatus)item.Status).ToString())
                 </td>
 
+                <td>
+                    @item.User1.Name
+                </td>
 
                 <td>
-                    @item.ResponsibleId
+                    @item.User.Name
                 </td>
 
 
