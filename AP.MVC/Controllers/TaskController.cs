@@ -27,7 +27,9 @@ namespace TaskTracker.MVC.Controllers
         private void LoadDropDowns(
             int? milestoneId = null,
             int? status = null,
-            int? priority = null)
+            int? priority = null,
+            int? responsibleId = null,
+            int? assigneeId = null)
         {
             ViewBag.MilestoneId =
                 DropdownHelper.GetMilestones(
@@ -49,6 +51,20 @@ namespace TaskTracker.MVC.Controllers
                     "Value",
                     "Text",
                     priority);
+
+            ViewBag.ResponsibleList =
+                new SelectList(
+                    service.GetActiveUsers(),
+                    "UserId",
+                    "Name",
+                    responsibleId);
+
+            ViewBag.AssigneeList =
+                new SelectList(
+                    service.GetActiveUsers(),
+                    "UserId",
+                    "Name",
+                    assigneeId);
         }
 
 
@@ -81,9 +97,7 @@ namespace TaskTracker.MVC.Controllers
 
                 if (fromHome)
                 {
-                    return RedirectToAction(
-                        "Index",
-                        "Home");
+                    return RedirectToAction("Index", "Home");
                 }
 
 

@@ -37,9 +37,19 @@
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="DueDate" Type="datetime" Nullable="false" />
           <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
-          <Property Name="Responsible" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ResponsibleId" Type="int" Nullable="false" />
+          <Property Name="AssigneeId" Type="int" />
           <Property Name="Priority" Type="int" Nullable="false" />
           <Property Name="Comments" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <Association Name="FK_Milestone_Project">
           <End Role="Project" Type="Self.Project" Multiplicity="1" />
@@ -50,6 +60,18 @@
             </Principal>
             <Dependent Role="Milestone">
               <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Task_Assignee">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Task" Type="Self.Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="AssigneeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -65,16 +87,37 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Task_Responsible">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Task" Type="Self.Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="ResponsibleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="TaskTrackerModelStoreContainer">
           <EntitySet Name="Milestone" EntityType="Self.Milestone" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Task" EntityType="Self.Task" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Milestone_Project" Association="Self.FK_Milestone_Project">
             <End Role="Project" EntitySet="Project" />
             <End Role="Milestone" EntitySet="Milestone" />
           </AssociationSet>
+          <AssociationSet Name="FK_Task_Assignee" Association="Self.FK_Task_Assignee">
+            <End Role="User" EntitySet="User" />
+            <End Role="Task" EntitySet="Task" />
+          </AssociationSet>
           <AssociationSet Name="FK_Task_Milestone" Association="Self.FK_Task_Milestone">
             <End Role="Milestone" EntitySet="Milestone" />
+            <End Role="Task" EntitySet="Task" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Task_Responsible" Association="Self.FK_Task_Responsible">
+            <End Role="User" EntitySet="User" />
             <End Role="Task" EntitySet="Task" />
           </AssociationSet>
         </EntityContainer>
@@ -118,10 +161,24 @@
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="DueDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Responsible" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ResponsibleId" Type="Int32" Nullable="false" />
+          <Property Name="AssigneeId" Type="Int32" />
           <Property Name="Priority" Type="Int32" Nullable="false" />
           <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Milestone" Relationship="Self.FK_Task_Milestone" FromRole="Task" ToRole="Milestone" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Task_Assignee" FromRole="Task" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="Self.FK_Task_Responsible" FromRole="Task" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Tasks" Relationship="Self.FK_Task_Assignee" FromRole="User" ToRole="Task" />
+          <NavigationProperty Name="Tasks1" Relationship="Self.FK_Task_Responsible" FromRole="User" ToRole="Task" />
         </EntityType>
         <Association Name="FK_Milestone_Project">
           <End Role="Project" Type="Self.Project" Multiplicity="1" />
@@ -147,16 +204,49 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Task_Assignee">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Task" Type="Self.Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="AssigneeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Task_Responsible">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Task" Type="Self.Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="ResponsibleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="TaskTrackerEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Milestones" EntityType="Self.Milestone" />
           <EntitySet Name="Projects" EntityType="Self.Project" />
           <EntitySet Name="Tasks" EntityType="Self.Task" />
+          <EntitySet Name="Users" EntityType="Self.User" />
           <AssociationSet Name="FK_Milestone_Project" Association="Self.FK_Milestone_Project">
             <End Role="Project" EntitySet="Projects" />
             <End Role="Milestone" EntitySet="Milestones" />
           </AssociationSet>
           <AssociationSet Name="FK_Task_Milestone" Association="Self.FK_Task_Milestone">
             <End Role="Milestone" EntitySet="Milestones" />
+            <End Role="Task" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Task_Assignee" Association="Self.FK_Task_Assignee">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Task" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Task_Responsible" Association="Self.FK_Task_Responsible">
+            <End Role="User" EntitySet="Users" />
             <End Role="Task" EntitySet="Tasks" />
           </AssociationSet>
         </EntityContainer>
@@ -199,9 +289,20 @@
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="DueDate" ColumnName="DueDate" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="Responsible" ColumnName="Responsible" />
+                <ScalarProperty Name="ResponsibleId" ColumnName="ResponsibleId" />
+                <ScalarProperty Name="AssigneeId" ColumnName="AssigneeId" />
                 <ScalarProperty Name="Priority" ColumnName="Priority" />
                 <ScalarProperty Name="Comments" ColumnName="Comments" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="TaskTrackerModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

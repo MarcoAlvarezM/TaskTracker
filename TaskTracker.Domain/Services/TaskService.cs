@@ -9,19 +9,38 @@ namespace TaskTracker.Domain
     {
         TaskTrackerEntities db = new TaskTrackerEntities();
 
+
         public List<Task> GetAll()
         {
-            return db.Tasks.ToList();
+            return db.Tasks
+                .Include(t => t.Milestone)
+                .Include(t => t.User)
+                .Include(t => t.User1)
+                .ToList();
         }
+
+
 
         public Task GetById(int id)
         {
-            return db.Tasks.Find(id);
+            return db.Tasks
+                .Include(t => t.Milestone)
+                .Include(t => t.User)
+                .Include(t => t.User1)
+                .FirstOrDefault(t => t.Id == id);
         }
 
         public List<Milestone> GetMilestones()
         {
             return db.Milestones.ToList();
+        }
+
+        public List<User> GetActiveUsers()
+        {
+            return db.Users
+                .Where(u => u.IsActive)
+                .OrderBy(u => u.Name)
+                .ToList();
         }
 
         public void Add(Task task)

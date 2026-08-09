@@ -4,6 +4,14 @@ GO
 USE TaskTracker;
 GO
 
+CREATE TABLE [User]
+(
+    UserId INT IDENTITY(1,1) PRIMARY KEY,
+    Name NVARCHAR(100) NOT NULL,
+    Email NVARCHAR(150) NOT NULL UNIQUE,
+    IsActive BIT NOT NULL DEFAULT 1
+);
+
 CREATE TABLE Project
 (
     ProjectId INT IDENTITY(1,1) PRIMARY KEY,
@@ -39,7 +47,8 @@ CREATE TABLE Task
     DueDate DATETIME NOT NULL,
     ModifiedDate DATETIME NOT NULL,
 
-    Responsible NVARCHAR(100) NOT NULL,
+    ResponsibleId INT NOT NULL,
+	AssigneeId INT NULL,
 
     Priority INT NOT NULL,
 
@@ -47,5 +56,14 @@ CREATE TABLE Task
 
     CONSTRAINT FK_Task_Milestone
         FOREIGN KEY(MilestoneId)
-        REFERENCES Milestone(Id)
+        REFERENCES Milestone(Id),
+
+	CONSTRAINT FK_Task_Responsible
+		FOREIGN KEY(ResponsibleId)
+		REFERENCES [User](UserId),
+
+	CONSTRAINT FK_Task_Assignee
+		FOREIGN KEY(AssigneeId)
+		REFERENCES [User](UserId)
 );
+

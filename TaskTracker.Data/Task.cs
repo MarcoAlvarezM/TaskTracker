@@ -22,10 +22,13 @@ namespace TaskTracker.Data
         public System.DateTime CreatedDate { get; set; }
         public System.DateTime DueDate { get; set; }
         public System.DateTime ModifiedDate { get; set; }
-        public string Responsible { get; set; }
+        public int ResponsibleId { get; set; }
+        public Nullable<int> AssigneeId { get; set; }
         public int Priority { get; set; }
         public string Comments { get; set; }
     
         public virtual Milestone Milestone { get; set; }
+        public virtual User User { get; set; }
+        public virtual User User1 { get; set; }
     }
 }

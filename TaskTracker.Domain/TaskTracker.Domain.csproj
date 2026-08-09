@@ -77,10 +77,11 @@
     <Compile Include="Enums\TaskStatus.cs" />
     <Compile Include="Helpers\DropdownHelper.cs" />
     <Compile Include="Helpers\EnumHelper.cs" />
-    <Compile Include="MilestoneService.cs" />
-    <Compile Include="ProjectService.cs" />
+    <Compile Include="Services\MilestoneService.cs" />
+    <Compile Include="Services\ProjectService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TaskService.cs" />
+    <Compile Include="Services\TaskService.cs" />
+    <Compile Include="Services\UserService.cs" />
     <Compile Include="ViewModels\MilestoneSelectViewModel.cs.cs" />
   </ItemGroup>
   <ItemGroup>

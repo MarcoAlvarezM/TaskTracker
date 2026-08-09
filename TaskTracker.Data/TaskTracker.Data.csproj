@@ -78,6 +78,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TaskTrackerModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="User.cs">
+      <DependentUpon>TaskTrackerModel.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />

@@ -1,0 +1,86 @@
+@model IEnumerable<TaskTracker.Data.User>
+
+@{
+    ViewBag.Title = "Users";
+}
+
+<h2>Users</h2>
+
+<p>
+    @Html.ActionLink(
+        "Create User",
+        "Create",
+        null,
+        new { @class = "btn btn-primary" })
+</p>
+
+<table class="table table-striped">
+
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var user in Model)
+        {
+            <tr>
+
+                <td>
+                    @user.Name
+                </td>
+
+                <td>
+                    @user.Email
+                </td>
+
+                <td>
+
+                    @if (user.IsActive)
+                    {
+                        <span class="text-success">
+                            Active
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="text-danger">
+                            Inactive
+                        </span>
+                    }
+
+                </td>
+
+                <td>
+
+                    @Html.ActionLink(
+                        "Details",
+                        "Details",
+                        new { id = user.UserId },
+                        new { @class = "btn btn-info btn-sm" })
+
+                    @Html.ActionLink(
+                        "Edit",
+                        "Edit",
+                        new { id = user.UserId },
+                        new { @class = "btn btn-warning btn-sm" })
+
+                    @Html.ActionLink(
+                        "Delete",
+                        "Delete",
+                        new { id = user.UserId },
+                        new { @class = "btn btn-danger btn-sm" })
+
+                </td>
+
+            </tr>
+        }
+
+    </tbody>
+
+</table>

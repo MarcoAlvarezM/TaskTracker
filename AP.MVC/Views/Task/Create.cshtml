@@ -15,110 +15,132 @@
     @Html.AntiForgeryToken()
 
 
-    <div class="form-horizontal">
+<div class="form-horizontal">
 
 
-        <div class="form-group">
+    <div class="form-group">
 
-            @Html.LabelFor(model => model.Name)
+        @Html.LabelFor(model => model.Name)
 
-            @Html.TextBoxFor(model => model.Name,
+        @Html.TextBoxFor(model => model.Name,
+        new
+        {
+            @class = "form-control",
+            required = "required",
+            maxlength = "100"
+        })
+
+        @Html.ValidationMessageFor(model => model.Name)
+
+    </div>
+
+
+
+    <div class="form-group">
+
+        @Html.LabelFor(model => model.Description)
+
+        @Html.TextAreaFor(model => model.Description,
+        new
+        {
+            @class = "form-control",
+            rows = 4,
+            required = "required"
+        })
+
+    </div>
+
+
+
+    <div class="form-group">
+
+        @Html.LabelFor(model => model.MilestoneId)
+
+
+        @Html.DropDownListFor(
+            model => model.MilestoneId,
+            (IEnumerable<SelectListItem>)ViewBag.MilestoneId,
+            "-- Select Milestone --",
             new
-            {
+            { 
                 @class = "form-control",
-                required = "required",
-                maxlength = "100"
-            })
-
-            @Html.ValidationMessageFor(model => model.Name)
-
-        </div>
-
-
-
-        <div class="form-group">
-
-            @Html.LabelFor(model => model.Description)
-
-            @Html.TextAreaFor(model => model.Description,
-            new
-            {
-                @class = "form-control",
-                rows = 4,
                 required = "required"
             })
-
-        </div>
-
-
-
-        <div class="form-group">
-
-            @Html.LabelFor(model => model.MilestoneId)
+        
+        @Html.ValidationMessageFor(
+           model => model.MilestoneId)
 
 
-            @Html.DropDownList(
-                "MilestoneId",
-                ViewBag.Milestones as SelectList,
-                "-- Select Milestone --",
-                new
-                {
-                    @class = "form-control",
-                    required = "required"
-                })
-
-        </div>
+    </div>
 
 
 
-        <div class="form-group">
+    <div class="form-group">
 
-            @Html.LabelFor(model => model.Status)
+        @Html.LabelFor(model => model.Status)
 
-            @Html.DropDownListFor(
-                model => model.Status,
-                (IEnumerable<SelectListItem>)ViewBag.StatusList,
-                "-- Select Status --",
-                new
-                {
-                    @class = "form-control",
-                    required = "required"
-                })
-
-        </div>
-
-
-        <div class="form-group">
-
-            @Html.LabelFor(model => model.DueDate)
-
-            @Html.TextBoxFor(
-            model => model.DueDate,
-            "{0:yyyy-MM-dd}",
-            new
-            {
-                @class = "form-control",
-                type = "date",
-                required = "required"
-            })
-
-        </div>
-
-
-
-        <div class="form-group">
-
-            @Html.LabelFor(model => model.Responsible)
-
-            @Html.TextBoxFor(model => model.Responsible,
+        @Html.DropDownListFor(
+            model => model.Status,
+            (IEnumerable<SelectListItem>)ViewBag.StatusList,
+            "-- Select Status --",
             new
             {
                 @class = "form-control",
                 required = "required"
             })
 
-        </div>
+    </div>
 
+
+    <div class="form-group">
+
+        @Html.LabelFor(model => model.DueDate)
+
+        @Html.TextBoxFor(
+        model => model.DueDate,
+        "{0:yyyy-MM-dd}",
+        new
+        {
+            @class = "form-control",
+            type = "date",
+            required = "required"
+        })
+
+    </div>
+
+
+
+    <div class="form-group">
+
+        @Html.LabelFor(model => model.ResponsibleId)
+
+        @Html.DropDownListFor(
+            model => model.ResponsibleId,
+            (IEnumerable<SelectListItem>)ViewBag.ResponsibleList,
+            "-- Select Responsible --",
+            new
+            {
+                @class = "form-control",
+                required = "required"
+            })
+
+    </div>
+
+
+    <div class="form-group">
+
+        @Html.LabelFor(model => model.AssigneeId)
+
+        @Html.DropDownListFor(
+            model => model.AssigneeId,
+            (IEnumerable<SelectListItem>)ViewBag.AssigneeList,
+            "-- Unassigned --",
+            new
+            {
+                @class = "form-control"
+            })
+
+    </div>
 
 
         <div class="form-group">
@@ -172,39 +194,39 @@
     </div>
 
 
-}
+    }
 
 
-@section Scripts{
-    @Scripts.Render("~/bundles/jqueryval")
+    @section Scripts{
+        @Scripts.Render("~/bundles/jqueryval")
 
-    <script>
-        document.querySelector("form").addEventListener("submit", function (e) {
+        <script>
+            document.querySelector("form").addEventListener("submit", function (e) {
 
-            // Validar Milestone
-            var milestone = document.getElementById("MilestoneId");
-            if (milestone && milestone.value === "") {
-                alert("Select a Milestone.");
-                e.preventDefault();
-                return;
-            }
-
-            // Validar Due Date
-            var dueDateInput = document.getElementById("DueDate");
-
-            if (dueDateInput && dueDateInput.value !== "") {
-
-                var dueDate = new Date(dueDateInput.value);
-                var today = new Date();
-
-                today.setHours(0, 0, 0, 0);
-
-                if (dueDate < today) {
-                    alert("Due Date cannot be earlier than today.");
+                // Validar Milestone
+                var milestone = document.getElementById("MilestoneId");
+                if (milestone && milestone.value === "") {
+                    alert("Select a Milestone.");
                     e.preventDefault();
+                    return;
                 }
-            }
 
-        });
-    </script>
-}
+                // Validar Due Date
+                var dueDateInput = document.getElementById("DueDate");
+
+                if (dueDateInput && dueDateInput.value !== "") {
+
+                    var dueDate = new Date(dueDateInput.value);
+                    var today = new Date();
+
+                    today.setHours(0, 0, 0, 0);
+
+                    if (dueDate < today) {
+                        alert("Due Date cannot be earlier than today.");
+                        e.preventDefault();
+                    }
+                }
+
+            });
+        </script>
+    }

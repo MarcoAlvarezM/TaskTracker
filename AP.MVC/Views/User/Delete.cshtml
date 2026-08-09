@@ -1,0 +1,95 @@
+@model TaskTracker.Data.User
+
+@{
+    ViewBag.Title = "Deactivate User";
+}
+
+<h2>Deactivate User</h2>
+
+<div class="alert alert-warning">
+
+    <strong>Warning:</strong>
+
+    This user will be marked as inactive.
+    Existing tasks assigned to this user will not be deleted.
+
+</div>
+
+
+<dl class="dl-horizontal">
+
+    <dt>
+        Name
+    </dt>
+
+    <dd>
+        @Model.Name
+    </dd>
+
+
+    <dt>
+        Email
+    </dt>
+
+    <dd>
+        @Model.Email
+    </dd>
+
+
+    <dt>
+        Status
+    </dt>
+
+    <dd>
+
+        @if (Model.IsActive)
+        {
+            <span class="text-success">
+                Active
+            </span>
+        }
+        else
+        {
+            <span class="text-danger">
+                Inactive
+            </span>
+        }
+
+    </dd>
+
+</dl>
+
+
+@if (Model.IsActive)
+{
+    using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(
+            model => model.UserId)
+
+
+        <input type="submit"
+               value="Deactivate"
+               class="btn btn-danger" />
+
+        @Html.ActionLink(
+            "Cancel",
+            "Index",
+            null,
+            new { @class = "btn btn-secondary" })
+    }
+}
+else
+{
+    <div class="alert alert-info">
+        This user is already inactive.
+    </div>
+
+    @Html.ActionLink(
+        "Back",
+        "Index",
+        null,
+        new { @class = "btn btn-secondary" })
+}
