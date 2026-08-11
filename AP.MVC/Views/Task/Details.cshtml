@@ -45,7 +45,7 @@
     <dd>@Model.User1.Name</dd>
 
     <dt>Assignee</dt>
-    <dd>@Model.User.Name</dd>
+    <dd>@(Model.User != null ? Model.User.Name : "Sin asignar")</dd>
 
 
     <dt>Priority</dt>
